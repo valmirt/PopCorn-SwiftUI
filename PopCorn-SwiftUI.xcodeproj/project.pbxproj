@@ -137,7 +137,7 @@
 		59246887263A4F7D00BDDF9C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				592468A5263A520D00BDDF9C /* Constants.swift */,
+				59332B8A263BA04C002AE328 /* Utils */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -192,6 +192,14 @@
 				592468AE263A628700BDDF9C /* MovieDetailViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		59332B8A263BA04C002AE328 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				592468A5263A520D00BDDF9C /* Constants.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -24,6 +24,7 @@ final class VideoListViewModel: ObservableObject {
         ]
     }
     
+    //MARK: - Intent(s)
     func fetchData(isToReload: Bool = false) {
         if isToReload {
             page = 0

@@ -18,6 +18,7 @@ final class VideoListRowViewModel: ObservableObject {
         loadImage()
     }
     
+    //MARK: - Access to the Model
     @Published private(set) var image: UIImage?
     
     var title: String {
