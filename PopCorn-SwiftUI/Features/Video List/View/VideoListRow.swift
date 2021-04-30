@@ -12,22 +12,21 @@ struct VideoListRow: View {
     
     var body: some View {
         HStack {
-            Image(uiImage: viewModel.image)
-                .renderingMode(.template)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 65, height: 98)
-                .foregroundColor(.gray)
-                .cornerRadius(3)
-                .padding(.trailing)
+            ImageVideo(viewModel: viewModel)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text(viewModel.title)
                     .font(.title2)
                     .fontWeight(.medium)
-                    .lineLimit(2)
+                    .lineLimit(lineLimit)
+                
+                Text(viewModel.title)
+                    .font(.title3)
+                    .fontWeight(.thin)
+                    .lineLimit(lineLimit)
                 
                 VideoLabel(title: viewModel.popularity, imageName: "heart.fill")
+                
                 HStack {
                     VideoLabel(title: viewModel.rate, imageName: "star.fill")
                     Spacer()
@@ -36,10 +35,13 @@ struct VideoListRow: View {
                         .fontWeight(.thin)
                 }
             }
+            .padding(.leading)
             Spacer()
         }
-        .padding(.horizontal)
+        .padding(4)
     }
+    
+    private let lineLimit = 1
 }
 
 struct VideoLabel: View {
@@ -57,16 +59,43 @@ struct VideoLabel: View {
                 Image(systemName: imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 18)
+                    .frame(height: heightImage)
                     .foregroundColor(.accentColor)
             }
         )
     }
+    
+    private let heightImage: CGFloat = 18
+}
+
+struct ImageVideo: View {
+    @ObservedObject var viewModel: VideoListRowViewModel
+    
+    var body: some View {
+        Group {
+            if let image = viewModel.image {
+                Image(uiImage: image)
+                    .resizable()
+            } else {
+                Image(systemName: "photo")
+                    .resizable()
+            }
+        }
+        .scaledToFit()
+        .frame(width: widthImage, height: heightImage)
+        .foregroundColor(.gray)
+        .cornerRadius(cornerRadiusImage)
+    }
+    
+    //MARK: - Constants
+    private let heightImage: CGFloat = 118
+    private let widthImage: CGFloat = 78
+    private let cornerRadiusImage: CGFloat = 4
 }
 
 struct VideoListRow_Previews: PreviewProvider {
     static var previews: some View {
         VideoListRow(viewModel: VideoListRowViewModel(movie: Preview.movie))
-            .previewLayout(.fixed(width: 400, height: 140))
+            .previewLayout(.fixed(width: 400, height: 160))
     }
 }

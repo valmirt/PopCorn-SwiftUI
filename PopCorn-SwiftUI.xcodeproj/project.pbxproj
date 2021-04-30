@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,7 @@
 		592468A8263A5A1900BDDF9C /* VideoListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592468A7263A5A1900BDDF9C /* VideoListRowViewModel.swift */; };
 		592468AD263A627300BDDF9C /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592468AC263A627300BDDF9C /* MovieDetailView.swift */; };
 		592468AF263A628700BDDF9C /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592468AE263A628700BDDF9C /* MovieDetailViewModel.swift */; };
+		59332B86263B8AE6002AE328 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 59332B85263B8AE6002AE328 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59332B86263B8AE6002AE328 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,8 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				59246887263A4F7D00BDDF9C /* Common */,
-				59246885263A4F3900BDDF9C /* Repository */,
-				59246886263A4F4300BDDF9C /* Use Case */,
 				59246884263A4F2C00BDDF9C /* Model */,
 				59246883263A4F2100BDDF9C /* Features */,
 				59246874263A4EE100BDDF9C /* PopCorn_SwiftUIApp.swift */,
@@ -132,20 +132,6 @@
 				59246895263A51CE00BDDF9C /* TVShowDetail.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		59246885263A4F3900BDDF9C /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		59246886263A4F4300BDDF9C /* Use Case */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Use Case";
 			sourceTree = "<group>";
 		};
 		59246887263A4F7D00BDDF9C /* Common */ = {
@@ -224,6 +210,9 @@
 			dependencies = (
 			);
 			name = "PopCorn-SwiftUI";
+			packageProductDependencies = (
+				59332B85263B8AE6002AE328 /* Alamofire */,
+			);
 			productName = "PopCorn-SwiftUI";
 			productReference = 59246871263A4EE100BDDF9C /* PopCorn-SwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -251,6 +240,9 @@
 				Base,
 			);
 			mainGroup = 59246868263A4EE100BDDF9C;
+			packageReferences = (
+				59332B84263B8AE6002AE328 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 59246872263A4EE100BDDF9C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -484,6 +476,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		59332B84263B8AE6002AE328 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		59332B85263B8AE6002AE328 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 59332B84263B8AE6002AE328 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 59246869263A4EE100BDDF9C /* Project object */;
 }

@@ -8,9 +8,16 @@
 
 import Foundation
 
-struct ResponseList <T: Decodable> : Decodable {
+struct ResponseList<T>: Decodable where T: Decodable {
     let page: Int
     let totalResults: Int
     let totalPages: Int
     let results: [T]
+    
+    enum CodingKeys: String, CodingKey {
+        case page
+        case totalResults = "total_results"
+        case totalPages = "total_pages"
+        case results
+    }
 }

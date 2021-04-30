@@ -5,24 +5,32 @@
 //  Created by Valmir Junior on 28/04/21.
 //
 
-import Foundation
+import UIKit
 
 enum Web {
-    static let BASE_URL = "https://api.themoviedb.org"
-    static let BASE_URL_IMAGE = "https://image.tmdb.org"
-    static let IMAGE_W45 = "/t/p/w45"
-    static let IMAGE_W185 = "/t/p/w185"
-    static let IMAGE_W300 = "/t/p/w300"
-    static let IMAGE_W342 = "/t/p/w342"
-    static let IMAGE_W500 = "/t/p/w500"
-    static let IMAGE_W780 = "/t/p/w780"
-    static let API_KEY = "ebf3f29bcec9455240223a565fb2a81d"
-    static let VERSION_API = "3"
+    static let baseUrl = "https://api.themoviedb.org"
+    static let baseImageUrl = "https://image.tmdb.org"
+    static let imageW45 = "/t/p/w45"
+    static let imageW185 = "/t/p/w185"
+    static let imageW300 = "/t/p/w300"
+    static let imageW342 = "/t/p/w342"
+    static let imageW500 = "/t/p/w500"
+    static let imageW780 = "/t/p/w780"
+    static let apiKey = "ebf3f29bcec9455240223a565fb2a81d"
+    static let apiVersion = "3"
+    static let cache = NSCache<NSString, UIImage>()
+    
+    static func createURL(baseURL: String, path: String, queries: [URLQueryItem]? = nil) -> URL? {
+        var component = URLComponents(string: baseURL)
+        component?.path = path
+        component?.queryItems = queries
+        return component?.url
+    }
 }
 
 enum General {
-    static let FIRST = 1
-    static let OFFSET = 5
+    static let first = 1
+    static let offset = 5
 }
 
 enum Preview {
@@ -31,7 +39,8 @@ enum Preview {
         id: 0,
         popularity: 0.5,
         releaseDate: "1999-10-29",
-        title: "Fight Club",
+        title: "Lord of the Rings: The Fellowship of the ring",
+        originalTitle: "Lord of the Rings: The Fellowship of the ring",
         voteAverage: 7.8,
         posterPath: "/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg"
     )

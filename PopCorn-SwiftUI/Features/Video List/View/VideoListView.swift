@@ -12,12 +12,37 @@ struct VideoListView: View {
     
     var body: some View {
         NavigationView {
-            List(0..<10) { item in
+            List(viewModel.movies) { movie in
                 NavigationLink(destination: MovieDetailView()) {
-                    VideoListRow(viewModel: VideoListRowViewModel(movie: Preview.movie))
+                    VideoListRow(viewModel: VideoListRowViewModel(movie: movie))
+                        .onAppear {
+                            loadNextPageIfNeeded(with: movie)
+                        }
                 }
             }
             .navigationTitle("Movies")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Label("Reload Data", systemImage: "arrow.counterclockwise")
+                        .foregroundColor(.accentColor)
+                        .onTapGesture {
+                            viewModel.fetchData(isToReload: true)
+                        }
+                }
+            }
+        }
+        .onAppear {
+            viewModel.fetchData()
+        }
+    }
+    
+    private func loadNextPageIfNeeded(with movie: Movie) {
+        var position = viewModel.movies.count - 1
+        if viewModel.movies.count > General.offset {
+            position = viewModel.movies.count - General.offset
+        }
+        if movie.id == viewModel.movies[position].id {
+            viewModel.fetchData()
         }
     }
 }
