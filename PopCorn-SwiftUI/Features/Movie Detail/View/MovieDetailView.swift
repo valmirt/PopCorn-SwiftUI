@@ -16,61 +16,21 @@ struct MovieDetailView: View {
                 BackgroundImage(viewModel.backgroundImage)
                     .frame(height: 260)
                 
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(viewModel.title)
-                        .font(.title)
-                        .fontWeight(.medium)
-                        .lineLimit(3)
-                        .padding(.top, 12)
-                    Text(viewModel.originalTitle)
-                        .font(.title3)
-                        .lineLimit(3)
-                    
-                    Text(viewModel.genres)
-                        .font(.body)
-                        .fontWeight(.light)
-                        .lineLimit(3)
-                    
-                    HStack(alignment: .top, spacing: 12) {
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text(viewModel.runtime)
-                                .font(.body)
-                                .fontWeight(.light)
-                                .lineLimit(1)
-                            Text(viewModel.budget)
-                                .font(.body)
-                                .fontWeight(.light)
-                                .lineLimit(1)
-                            Text(viewModel.status)
-                                .font(.body)
-                                .fontWeight(.light)
-                                .lineLimit(1)
-                            Text(viewModel.releaseDate)
-                                .font(.body)
-                                .fontWeight(.light)
-                                .lineLimit(1)
-                        }
-                        Spacer()
-                        VStack(alignment: .leading) {
-                            MovieLabel(text: viewModel.popularity, imageName: "heart.fill")
-                            MovieLabel(text: viewModel.rate, imageName: "star.fill")
-                        }
-                    }
-                    .padding(.top)
-                    
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(viewModel.countries)
-                            .font(.body)
-                            .fontWeight(.light)
-                            .lineLimit(3)
-                        Text(viewModel.companies)
-                            .font(.body)
-                            .fontWeight(.light)
-                            .lineLimit(3)
-                    }
-                    .padding(.top)
-                }
+                MovieInfo(
+                    title: viewModel.title,
+                    originalTitle: viewModel.originalTitle,
+                    genres: viewModel.genres,
+                    runtime: viewModel.runtime,
+                    budget: viewModel.budget,
+                    status: viewModel.status,
+                    releaseDate: viewModel.releaseDate,
+                    popularity: viewModel.popularity,
+                    rate: viewModel.rate,
+                    countries: viewModel.countries,
+                    companies: viewModel.companies
+                )
                 .padding(.horizontal)
+                
                 Spacer()
             }
         }
@@ -78,6 +38,7 @@ struct MovieDetailView: View {
     }
 }
 
+//MARK: - Background Image view
 struct BackgroundImage: View {
     var backgroundImage: UIImage?
     
@@ -106,6 +67,7 @@ struct BackgroundImage: View {
     }
 }
 
+//MARK: - Movie Label View
 struct MovieLabel: View {
     var text: String
     var imageName: String
@@ -126,6 +88,78 @@ struct MovieLabel: View {
                     .foregroundColor(.accentColor)
             }
         )
+    }
+}
+
+//MARK: - Movie Info View
+struct MovieInfo: View {
+    var title: String
+    var originalTitle: String
+    var genres: String
+    var runtime: String
+    var budget: String
+    var status: String
+    var releaseDate: String
+    var popularity: String
+    var rate: String
+    var countries: String
+    var companies: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.title)
+                .fontWeight(.medium)
+                .lineLimit(3)
+                .padding(.top, 12)
+            Text(originalTitle)
+                .font(.title3)
+                .lineLimit(3)
+            
+            Text(genres)
+                .font(.body)
+                .fontWeight(.light)
+                .lineLimit(3)
+            
+            HStack(alignment: .top, spacing: 12) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(runtime)
+                        .font(.body)
+                        .fontWeight(.light)
+                        .lineLimit(1)
+                    Text(budget)
+                        .font(.body)
+                        .fontWeight(.light)
+                        .lineLimit(1)
+                    Text(status)
+                        .font(.body)
+                        .fontWeight(.light)
+                        .lineLimit(1)
+                    Text(releaseDate)
+                        .font(.body)
+                        .fontWeight(.light)
+                        .lineLimit(1)
+                }
+                Spacer()
+                VStack(alignment: .leading) {
+                    MovieLabel(text: popularity, imageName: "heart.fill")
+                    MovieLabel(text: rate, imageName: "star.fill")
+                }
+            }
+            .padding(.top)
+            
+            VStack(alignment: .leading, spacing: 12) {
+                Text(countries)
+                    .font(.body)
+                    .fontWeight(.light)
+                    .lineLimit(3)
+                Text(companies)
+                    .font(.body)
+                    .fontWeight(.light)
+                    .lineLimit(3)
+            }
+            .padding(.top)
+        }
     }
 }
 
