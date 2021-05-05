@@ -29,6 +29,7 @@
 		592468AD263A627300BDDF9C /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592468AC263A627300BDDF9C /* MovieDetailView.swift */; };
 		592468AF263A628700BDDF9C /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592468AE263A628700BDDF9C /* MovieDetailViewModel.swift */; };
 		59332B86263B8AE6002AE328 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 59332B85263B8AE6002AE328 /* Alamofire */; };
+		5962EE8F26424C9000ED4863 /* MovieDetailExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962EE8E26424C9000ED4863 /* MovieDetailExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		592468A7263A5A1900BDDF9C /* VideoListRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListRowViewModel.swift; sourceTree = "<group>"; };
 		592468AC263A627300BDDF9C /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		592468AE263A628700BDDF9C /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
+		5962EE8E26424C9000ED4863 /* MovieDetailExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		59246887263A4F7D00BDDF9C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5962EE8D26424C7E00ED4863 /* Extension */,
 				59332B8A263BA04C002AE328 /* Utils */,
 			);
 			path = Common;
@@ -200,6 +203,14 @@
 				592468A5263A520D00BDDF9C /* Constants.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		5962EE8D26424C7E00ED4863 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				5962EE8E26424C9000ED4863 /* MovieDetailExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,6 +297,7 @@
 				5924689F263A51CE00BDDF9C /* TVShowDetail.swift in Sources */,
 				5924688C263A50D800BDDF9C /* VideoListRow.swift in Sources */,
 				592468A6263A520D00BDDF9C /* Constants.swift in Sources */,
+				5962EE8F26424C9000ED4863 /* MovieDetailExtension.swift in Sources */,
 				5924688E263A50F700BDDF9C /* VideoListViewModel.swift in Sources */,
 				59246875263A4EE100BDDF9C /* PopCorn_SwiftUIApp.swift in Sources */,
 				592468A4263A51CE00BDDF9C /* Credit.swift in Sources */,

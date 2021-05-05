@@ -13,7 +13,7 @@ struct VideoListView: View {
     var body: some View {
         NavigationView {
             List(viewModel.movies) { movie in
-                NavigationLink(destination: MovieDetailView()) {
+                NavigationLink(destination: MovieDetailView(viewModel: MovieDetailViewModel(idMovie: movie.id))) {
                     VideoListRow(viewModel: VideoListRowViewModel(movie: movie))
                         .onAppear {
                             loadNextPageIfNeeded(with: movie)
