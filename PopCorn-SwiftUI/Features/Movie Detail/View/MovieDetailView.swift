@@ -31,6 +31,18 @@ struct MovieDetailView: View {
                 )
                 .padding(.horizontal)
                 
+                Text("Overview:")
+                    .font(.title3)
+                    .padding([.horizontal, .top])
+                
+                Text(viewModel.overview)
+                    .font(.body)
+                    .fontWeight(.light)
+                    .lineLimit(nil)
+                    .padding(.horizontal)
+                    .padding(.top, 6)
+                
+                
                 Spacer()
             }
         }

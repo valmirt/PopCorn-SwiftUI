@@ -65,6 +65,9 @@ final class MovieDetailViewModel: ObservableObject {
     var companies: String {
         "Companies: \(movieDetail?.companiesFormatted ?? "")"
     }
+    var overview: String {
+        movieDetail?.overview ?? ""
+    }
     
     //MARK: - Intent(s)
     func fetchDetail() {
