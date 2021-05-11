@@ -13,6 +13,7 @@ final class MovieDetailViewModel: ObservableObject {
     private var id: Int
     private var taskDetail: AnyCancellable?
     private var taskCredit: AnyCancellable?
+    private var taskSimilar: AnyCancellable?
     private var queries: [URLQueryItem] {
         return [
             URLQueryItem(name: "api_key", value: Web.apiKey)
@@ -22,6 +23,7 @@ final class MovieDetailViewModel: ObservableObject {
     @Published private var movieDetail: MovieDetail?
     @Published private(set) var backgroundImage: UIImage?
     @Published private(set) var castAndCrew: [CastCrew] = []
+    @Published private(set) var similar: [Movie] = []
     
     init(idMovie: Int) {
         id = idMovie
@@ -70,6 +72,7 @@ final class MovieDetailViewModel: ObservableObject {
     func fetchDetail() {
         fetchDetailMovie()
         fetchCredit()
+        fetchSimilar()
     }
     
     private func fetchDetailMovie() {
@@ -98,6 +101,22 @@ final class MovieDetailViewModel: ObservableObject {
                     switch response.result {
                     case .success(let data):
                         self.fillCastAndCrew(with: data)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                })
+        }
+    }
+    
+    func fetchSimilar() {
+        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)/similar", queries: queries) {
+            taskSimilar = AF.request(url, method: .get)
+                .publishDecodable(type: ResponseList<Movie>.self)
+                .sink(receiveValue: { [weak self] response in
+                    guard let self = self else { return }
+                    switch response.result {
+                    case .success(let data):
+                        self.similar.append(contentsOf: data.results)
                     case .failure(let error):
                         print(error.localizedDescription)
                     }

@@ -41,15 +41,35 @@ struct MovieDetailView: View {
                     .padding(.top, 6)
                     .fixedSize(horizontal: false, vertical: true)
                 
-                Text("Cast & Crew:")
-                    .font(.title2)
-                    .padding([.horizontal, .top])
+                if viewModel.castAndCrew.count > 0 {
+                    Text("Cast & Crew:")
+                        .font(.title2)
+                        .padding([.horizontal, .top])
+                    
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(viewModel.castAndCrew) { item in
+                                CreditItemView(viewModel: CreditViewModel(castOrCrew: item))
+                                    .frame(width: 150, height: 210)
+                            }
+                        }
+                    }
+                }
                 
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(viewModel.castAndCrew) { item in
-                            CreditItemView(viewModel: CreditViewModel(castOrCrew: item))
-                                .frame(width: 150, height: 225)
+                if viewModel.similar.count > 0 {
+                    Text("Similar:")
+                        .font(.title2)
+                        .padding([.horizontal, .top])
+                
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(viewModel.similar) { movie in
+                                NavigationLink(
+                                    destination: MovieDetailView(viewModel: MovieDetailViewModel(idMovie: movie.id))) {
+                                    SimilarView(viewModel: SimilarViewModel(movie: movie))
+                                        .frame(width: 125, height: 190)
+                                }
+                            }
                         }
                     }
                 }
