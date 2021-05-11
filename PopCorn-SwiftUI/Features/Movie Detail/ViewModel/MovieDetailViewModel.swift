@@ -51,7 +51,7 @@ final class MovieDetailViewModel: ObservableObject {
         "Status: \(movieDetail?.status ?? "")"
     }
     var releaseDate: String {
-        "ReleaseDate: \(movieDetail?.releaseDate ?? "")"
+        "Release date: \(movieDetail?.releaseDate ?? "")"
     }
     var popularity: String {
         String(format: "%.1f", movieDetail?.popularity ?? 0)
