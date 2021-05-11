@@ -32,6 +32,7 @@
 		5962EE8F26424C9000ED4863 /* MovieDetailExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962EE8E26424C9000ED4863 /* MovieDetailExtension.swift */; };
 		596CB3302644C9F000A98E4C /* CreditItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596CB32F2644C9F000A98E4C /* CreditItemView.swift */; };
 		596CB3322644CAB500A98E4C /* CreditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596CB3312644CAB500A98E4C /* CreditViewModel.swift */; };
+		598AC7B62649F80A00CD8A94 /* CastCrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598AC7B52649F80A00CD8A94 /* CastCrew.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		5962EE8E26424C9000ED4863 /* MovieDetailExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailExtension.swift; sourceTree = "<group>"; };
 		596CB32F2644C9F000A98E4C /* CreditItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditItemView.swift; sourceTree = "<group>"; };
 		596CB3312644CAB500A98E4C /* CreditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditViewModel.swift; sourceTree = "<group>"; };
+		598AC7B52649F80A00CD8A94 /* CastCrew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCrew.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				59246898263A51CE00BDDF9C /* SeasonDetail.swift */,
 				59246894263A51CE00BDDF9C /* TVShow.swift */,
 				59246895263A51CE00BDDF9C /* TVShowDetail.swift */,
+				598AC7B52649F80A00CD8A94 /* CastCrew.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			children = (
 				5962EE8D26424C7E00ED4863 /* Extension */,
 				59332B8A263BA04C002AE328 /* Utils */,
+				598AC7B72649FEB400CD8A94 /* Views */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -217,6 +221,13 @@
 				5962EE8E26424C9000ED4863 /* MovieDetailExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		598AC7B72649FEB400CD8A94 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 				596CB3302644C9F000A98E4C /* CreditItemView.swift in Sources */,
 				59246875263A4EE100BDDF9C /* PopCorn_SwiftUIApp.swift in Sources */,
 				592468A4263A51CE00BDDF9C /* Credit.swift in Sources */,
+				598AC7B62649F80A00CD8A94 /* CastCrew.swift in Sources */,
 				592468A0263A51CE00BDDF9C /* People.swift in Sources */,
 				596CB3322644CAB500A98E4C /* CreditViewModel.swift in Sources */,
 				592468AD263A627300BDDF9C /* MovieDetailView.swift in Sources */,

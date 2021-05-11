@@ -44,4 +44,11 @@ enum Preview {
         voteAverage: 7.8,
         posterPath: "/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg"
     )
+    
+    static let castOrCrew = CastCrew(
+        id: -1,
+        name: "Quentin Tarantino",
+        charOrJob: "Director",
+        profilePath: "/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg"
+    )
 }

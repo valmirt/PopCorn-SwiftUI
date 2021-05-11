@@ -11,7 +11,8 @@ import Alamofire
 
 final class MovieDetailViewModel: ObservableObject {
     private var id: Int
-    private var task: AnyCancellable?
+    private var taskDetail: AnyCancellable?
+    private var taskCredit: AnyCancellable?
     private var queries: [URLQueryItem] {
         return [
             URLQueryItem(name: "api_key", value: Web.apiKey)
@@ -20,6 +21,7 @@ final class MovieDetailViewModel: ObservableObject {
     
     @Published private var movieDetail: MovieDetail?
     @Published private(set) var backgroundImage: UIImage?
+    @Published private(set) var castAndCrew: [CastCrew] = []
     
     init(idMovie: Int) {
         id = idMovie
@@ -39,6 +41,7 @@ final class MovieDetailViewModel: ObservableObject {
     var budget: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        formatter.locale = Locale(identifier: "en-US")
         if let str = formatter.string(for: movieDetail?.budget), str != "$0.00" {
             return "Budget: \(str)"
         }
@@ -59,20 +62,19 @@ final class MovieDetailViewModel: ObservableObject {
     var genres: String {
         "Genres: \(movieDetail?.genresFormatted ?? "")"
     }
-    var countries: String {
-        "Countries: \(movieDetail?.countriesFormatted ?? "")"
-    }
-    var companies: String {
-        "Companies: \(movieDetail?.companiesFormatted ?? "")"
-    }
     var overview: String {
         movieDetail?.overview ?? ""
     }
     
     //MARK: - Intent(s)
     func fetchDetail() {
+        fetchDetailMovie()
+        fetchCredit()
+    }
+    
+    private func fetchDetailMovie() {
         if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)", queries: queries) {
-            task = AF.request(url, method: .get)
+            taskDetail = AF.request(url, method: .get)
                 .publishDecodable(type: MovieDetail.self)
                 .sink(receiveValue: { [weak self] response in
                     guard let self = self else { return }
@@ -80,6 +82,22 @@ final class MovieDetailViewModel: ObservableObject {
                     case .success(let data):
                         self.movieDetail = data
                         self.loadImage()
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                })
+        }
+    }
+    
+    private func fetchCredit() {
+        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)/credits", queries: queries) {
+            taskCredit = AF.request(url, method: .get)
+                .publishDecodable(type: Credit.self)
+                .sink(receiveValue: { [weak self] response in
+                    guard let self = self else { return }
+                    switch response.result {
+                    case .success(let data):
+                        self.fillCastAndCrew(with: data)
                     case .failure(let error):
                         print(error.localizedDescription)
                     }
@@ -95,7 +113,7 @@ final class MovieDetailViewModel: ObservableObject {
                 return
             }
             
-            task = AF.request(url)
+            taskDetail = AF.request(url)
                 .publishData()
                 .sink { [weak self] response in
                     guard let self = self else { return }
@@ -109,6 +127,15 @@ final class MovieDetailViewModel: ObservableObject {
                         print(error.localizedDescription)
                     }
                 }
+        }
+    }
+    
+    private func fillCastAndCrew(with credit: Credit) {
+        credit.cast.forEach { item in
+            castAndCrew.append(CastCrew(id: item.id, name: item.name, charOrJob: item.character, profilePath: item.profilePath))
+        }
+        credit.crew.forEach { item in
+            castAndCrew.append(CastCrew(id: item.id, name: item.name, charOrJob: item.job, profilePath: item.profilePath))
         }
     }
 }

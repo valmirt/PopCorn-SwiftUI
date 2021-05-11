@@ -13,4 +13,11 @@ struct Credit: Decodable {
     let cast: [Cast]
     let crew: [Crew]
     let guestStars: [Cast]?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case cast
+        case crew
+        case guestStars = "guest_starts"
+    }
 }

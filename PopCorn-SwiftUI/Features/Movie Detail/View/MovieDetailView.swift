@@ -25,14 +25,12 @@ struct MovieDetailView: View {
                     status: viewModel.status,
                     releaseDate: viewModel.releaseDate,
                     popularity: viewModel.popularity,
-                    rate: viewModel.rate,
-                    countries: viewModel.countries,
-                    companies: viewModel.companies
+                    rate: viewModel.rate
                 )
                 .padding(.horizontal)
                 
                 Text("Overview:")
-                    .font(.title3)
+                    .font(.title2)
                     .padding([.horizontal, .top])
                 
                 Text(viewModel.overview)
@@ -41,9 +39,20 @@ struct MovieDetailView: View {
                     .lineLimit(nil)
                     .padding(.horizontal)
                     .padding(.top, 6)
+                    .fixedSize(horizontal: false, vertical: true)
                 
+                Text("Cast & Crew:")
+                    .font(.title2)
+                    .padding([.horizontal, .top])
                 
-                Spacer()
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(viewModel.castAndCrew) { item in
+                            CreditItemView(viewModel: CreditViewModel(castOrCrew: item))
+                                .frame(width: 150, height: 225)
+                        }
+                    }
+                }
             }
         }
         .ignoresSafeArea(edges: .top)
@@ -114,8 +123,6 @@ struct MovieInfo: View {
     var releaseDate: String
     var popularity: String
     var rate: String
-    var countries: String
-    var companies: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -124,14 +131,17 @@ struct MovieInfo: View {
                 .fontWeight(.medium)
                 .lineLimit(3)
                 .padding(.top, 12)
+                .fixedSize(horizontal: false, vertical: true)
             Text(originalTitle)
                 .font(.title3)
                 .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
             
             Text(genres)
                 .font(.body)
                 .fontWeight(.light)
                 .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
             
             HStack(alignment: .top, spacing: 12) {
                 VStack(alignment: .leading, spacing: 12) {
@@ -157,18 +167,6 @@ struct MovieInfo: View {
                     MovieLabel(text: popularity, imageName: "heart.fill")
                     MovieLabel(text: rate, imageName: "star.fill")
                 }
-            }
-            .padding(.top)
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text(countries)
-                    .font(.body)
-                    .fontWeight(.light)
-                    .lineLimit(3)
-                Text(companies)
-                    .font(.body)
-                    .fontWeight(.light)
-                    .lineLimit(3)
             }
             .padding(.top)
         }

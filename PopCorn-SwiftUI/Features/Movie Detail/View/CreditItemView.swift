@@ -13,17 +13,21 @@ struct CreditItemView: View {
     var body: some View {
         VStack {
             ProfileImage(image: viewModel.image)
-                .padding()
-            Text("Name")
+                .padding(.vertical, 8)
+            Text(viewModel.name)
                 .font(.headline)
                 .fontWeight(.semibold)
-            Text("Character")
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
+                .padding(.vertical, 4)
+                
+            Text(viewModel.charOrJob)
                 .font(.headline)
-                .fontWeight(.regular)
-                .padding(.vertical)
+                .fontWeight(.light)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
             Spacer()
         }
-        .padding()
     }
 }
 
@@ -42,7 +46,7 @@ struct ProfileImage: View {
         }
         .scaledToFill()
         .foregroundColor(.gray)
-        .frame(width: 78, height: 78)
+        .frame(width: 92, height: 92)
         .clipShape(Circle())
         .overlay(Circle().stroke(Color.accentColor, lineWidth: 2))
     }
@@ -50,7 +54,7 @@ struct ProfileImage: View {
 
 struct CreditItemView_Previews: PreviewProvider {
     static var previews: some View {
-        CreditItemView(viewModel: CreditViewModel())
+        CreditItemView(viewModel: CreditViewModel(castOrCrew: Preview.castOrCrew))
             .previewLayout(.fixed(width: 150, height: 225))
     }
 }

@@ -13,4 +13,11 @@ struct Crew: Decodable {
     var job: String
     var name: String
     var profilePath: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case job
+        case id
+        case name
+        case profilePath = "profile_path"
+    }
 }

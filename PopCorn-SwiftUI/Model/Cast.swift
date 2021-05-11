@@ -13,4 +13,11 @@ struct Cast: Decodable {
     var id: Int
     var name: String
     var profilePath: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case character
+        case id
+        case name
+        case profilePath = "profile_path"
+    }
 }
