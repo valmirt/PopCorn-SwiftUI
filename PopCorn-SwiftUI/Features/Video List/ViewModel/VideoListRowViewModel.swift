@@ -31,10 +31,10 @@ final class VideoListRowViewModel: ObservableObject {
         String(movie.releaseDate.prefix(4))
     }
     var popularity: String {
-        String(format: "%.1f", movie.popularity)
+        String(movie.popularity.round(to: 2))
     }
     var rate: String {
-        String(format: "%.1f", movie.voteAverage)
+        String(movie.voteAverage.round(to: 2))
     }
     
     private func loadImage() {

@@ -54,10 +54,10 @@ final class MovieDetailViewModel: ObservableObject {
         "Release date: \(movieDetail?.releaseDate ?? "")"
     }
     var popularity: String {
-        String(format: "%.1f", movieDetail?.popularity ?? 0)
+        String(movieDetail?.popularity.round(to: 2) ?? 0)
     }
     var rate: String {
-        String(format: "%.1f", movieDetail?.voteAverage ?? 0)
+        String(movieDetail?.voteAverage.round(to: 2) ?? 0)
     }
     var genres: String {
         "Genres: \(movieDetail?.genresFormatted ?? "")"
