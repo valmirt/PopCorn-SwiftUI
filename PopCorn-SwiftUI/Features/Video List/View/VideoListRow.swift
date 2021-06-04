@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VideoListRow: View {
-    @ObservedObject var viewModel: VideoListRowViewModel
+    @StateObject var viewModel: VideoListRowViewModel
     
     var body: some View {
         HStack {

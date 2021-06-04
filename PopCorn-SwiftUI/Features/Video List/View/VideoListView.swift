@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VideoListView: View {
-    @ObservedObject var viewModel: VideoListViewModel
+    @StateObject var viewModel: VideoListViewModel
     
     var body: some View {
         NavigationView {
@@ -20,7 +20,7 @@ struct VideoListView: View {
                         }
                 }
             }
-            .navigationTitle("Movies")
+            .navigationTitle(viewModel.title)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Label("Reload Data", systemImage: "arrow.counterclockwise")
@@ -50,6 +50,6 @@ struct VideoListView: View {
 struct VideoListView_Previews: PreviewProvider {
     static var previews: some View {
         
-        VideoListView(viewModel: VideoListViewModel())
+        VideoListView(viewModel: VideoListViewModel(tab: Tab.popular))
     }
 }

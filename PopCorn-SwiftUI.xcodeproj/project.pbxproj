@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59124F75266AEB9A00F72993 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59124F74266AEB9A00F72993 /* HomeView.swift */; };
+		59124F77266AEDD600F72993 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59124F76266AEDD600F72993 /* Tab.swift */; };
 		59246875263A4EE100BDDF9C /* PopCorn_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59246874263A4EE100BDDF9C /* PopCorn_SwiftUIApp.swift */; };
 		59246877263A4EE100BDDF9C /* VideoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59246876263A4EE100BDDF9C /* VideoListView.swift */; };
 		59246879263A4EE700BDDF9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59246878263A4EE700BDDF9C /* Assets.xcassets */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		59124F74266AEB9A00F72993 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		59124F76266AEDD600F72993 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		59246871263A4EE100BDDF9C /* PopCorn-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PopCorn-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59246874263A4EE100BDDF9C /* PopCorn_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopCorn_SwiftUIApp.swift; sourceTree = "<group>"; };
 		59246876263A4EE100BDDF9C /* VideoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListView.swift; sourceTree = "<group>"; };
@@ -83,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59124F73266AEB7800F72993 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				59124F74266AEB9A00F72993 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		59246868263A4EE100BDDF9C = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +136,7 @@
 		59246883263A4F2100BDDF9C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				59124F73266AEB7800F72993 /* Home */,
 				59246888263A50A000BDDF9C /* Video List */,
 				592468A9263A624600BDDF9C /* Movie Detail */,
 			);
@@ -215,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				592468A5263A520D00BDDF9C /* Constants.swift */,
+				59124F76266AEDD600F72993 /* Tab.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -362,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59124F75266AEB9A00F72993 /* HomeView.swift in Sources */,
 				592468A8263A5A1900BDDF9C /* VideoListRowViewModel.swift in Sources */,
 				5924689D263A51CE00BDDF9C /* ResponseList.swift in Sources */,
 				59246877263A4EE100BDDF9C /* VideoListView.swift in Sources */,
@@ -388,6 +403,7 @@
 				592468A2263A51CE00BDDF9C /* SeasonDetail.swift in Sources */,
 				59246890263A512500BDDF9C /* Movie.swift in Sources */,
 				5924689E263A51CE00BDDF9C /* TVShow.swift in Sources */,
+				59124F77266AEDD600F72993 /* Tab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@ final class VideoListViewModel: ObservableObject {
     private var task: AnyCancellable?
     private var page = 0
     private var totalPages = Int.max
+    private var tab: Tab
     private var queries: [URLQueryItem] {
         if page < totalPages {
             page += 1
@@ -23,6 +24,13 @@ final class VideoListViewModel: ObservableObject {
             URLQueryItem(name: "page", value: String(page))
         ]
     }
+    var title: String {
+        tab.rawValue
+    }
+    
+    init(tab: Tab) {
+        self.tab = tab
+    }
     
     //MARK: - Intent(s)
     func fetchData(isToReload: Bool = false) {
@@ -30,7 +38,7 @@ final class VideoListViewModel: ObservableObject {
             page = 0
             movies = []
         }
-        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/popular", queries: queries) {
+        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(tab.path)", queries: queries) {
             task = AF.request(url, method: .get)
                 .publishDecodable(type: ResponseList<Movie>.self)
                 .sink(receiveValue: { [weak self] response in

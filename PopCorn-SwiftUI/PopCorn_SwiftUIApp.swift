@@ -11,7 +11,7 @@ import SwiftUI
 struct PopCorn_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            VideoListView(viewModel: VideoListViewModel())
+            HomeView()
         }
     }
 }
