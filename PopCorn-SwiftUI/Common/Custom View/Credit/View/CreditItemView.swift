@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct CreditItemView: View {
-    @ObservedObject var viewModel: CreditViewModel
+    @StateObject var viewModel: CreditViewModel
     
     var body: some View {
         VStack {
-            ProfileImage(image: viewModel.image)
+            ProfileImage(image: viewModel.image, width: 92, height: 92)
                 .padding(.vertical, 8)
             Text(viewModel.name)
                 .font(.headline)
@@ -28,27 +28,6 @@ struct CreditItemView: View {
                 .lineLimit(2)
             Spacer()
         }
-    }
-}
-
-struct ProfileImage: View {
-    var image: UIImage?
-    
-    var body: some View {
-        Group {
-            if let image = image {
-                Image(uiImage: image)
-                    .resizable()
-            } else {
-                Image(systemName: "person.fill")
-                    .resizable()
-            }
-        }
-        .scaledToFill()
-        .foregroundColor(.gray)
-        .frame(width: 92, height: 92)
-        .clipShape(Circle())
-        .overlay(Circle().stroke(Color.accentColor, lineWidth: 2))
     }
 }
 
