@@ -10,5 +10,9 @@ import Combine
 import Alamofire
 
 final class PersonViewModel: ObservableObject {
+    private var idPerson: Int
     
+    init(idPerson: Int) {
+        self.idPerson = idPerson
+    }
 }

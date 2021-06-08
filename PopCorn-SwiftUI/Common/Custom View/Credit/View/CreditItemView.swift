@@ -16,6 +16,7 @@ struct CreditItemView: View {
                 .padding(.vertical, 8)
             Text(viewModel.name)
                 .font(.headline)
+                .foregroundColor(.primary)
                 .fontWeight(.semibold)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
@@ -23,6 +24,7 @@ struct CreditItemView: View {
                 
             Text(viewModel.charOrJob)
                 .font(.headline)
+                .foregroundColor(.primary)
                 .fontWeight(.light)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)

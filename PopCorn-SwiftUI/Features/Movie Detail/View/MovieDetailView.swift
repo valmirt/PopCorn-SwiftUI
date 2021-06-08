@@ -49,8 +49,10 @@ struct MovieDetailView: View {
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(viewModel.castAndCrew) { item in
-                                CreditItemView(viewModel: CreditViewModel(castOrCrew: item))
-                                    .frame(width: 150, height: 210)
+                                NavigationLink(destination: PersonView(viewModel: PersonViewModel(idPerson: item.id))) {
+                                    CreditItemView(viewModel: CreditViewModel(castOrCrew: item))
+                                        .frame(width: 150, height: 210)
+                                }
                             }
                         }
                     }
@@ -66,8 +68,8 @@ struct MovieDetailView: View {
                             ForEach(viewModel.similar) { movie in
                                 NavigationLink(
                                     destination: MovieDetailView(viewModel: MovieDetailViewModel(idMovie: movie.id))) {
-                                    SimilarView(viewModel: SimilarViewModel(movie: movie))
-                                        .frame(width: 125, height: 190)
+                                        SimilarView(viewModel: SimilarViewModel(movie: movie))
+                                            .frame(width: 125, height: 190)
                                 }
                             }
                         }
