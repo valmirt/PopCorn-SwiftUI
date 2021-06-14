@@ -6,14 +6,10 @@
 //
 
 import SwiftUI
-import Combine
-import Alamofire
 
+@MainActor
 final class MovieDetailViewModel: ObservableObject {
     private var id: Int
-    private var taskDetail: AnyCancellable?
-    private var taskCredit: AnyCancellable?
-    private var taskSimilar: AnyCancellable?
     private var queries: [URLQueryItem] {
         return [
             URLQueryItem(name: "api_key", value: Web.apiKey)
@@ -21,7 +17,6 @@ final class MovieDetailViewModel: ObservableObject {
     }
     
     @Published private var movieDetail: MovieDetail?
-    @Published private(set) var backgroundImage: UIImage?
     @Published private(set) var castAndCrew: [CastCrew] = []
     @Published private(set) var similar: [Movie] = []
     
@@ -67,85 +62,59 @@ final class MovieDetailViewModel: ObservableObject {
     var overview: String {
         movieDetail?.overview ?? ""
     }
+    var backgroundURL: URL? {
+        if let backdropPath = movieDetail?.backdropPath {
+            let url = Web.createURL(baseURL: Web.baseImageUrl, path: "\(Web.imageW780)\(backdropPath)")
+            return url
+        }
+        return nil
+    }
     
     //MARK: - Intent(s)
     func fetchDetail() {
-        fetchDetailMovie()
-        fetchCredit()
-        fetchSimilar()
+        async {
+            await fetchDetailMovie()
+            await fetchCredit()
+            await fetchSimilar()
+        }
     }
     
-    private func fetchDetailMovie() {
+    private func fetchDetailMovie() async {
         if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)", queries: queries) {
-            taskDetail = AF.request(url, method: .get)
-                .publishDecodable(type: MovieDetail.self)
-                .sink(receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    switch response.result {
-                    case .success(let data):
-                        self.movieDetail = data
-                        self.loadImage()
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                })
-        }
-    }
-    
-    private func fetchCredit() {
-        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)/credits", queries: queries) {
-            taskCredit = AF.request(url, method: .get)
-                .publishDecodable(type: Credit.self)
-                .sink(receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    switch response.result {
-                    case .success(let data):
-                        self.fillCastAndCrew(with: data)
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                })
-        }
-    }
-    
-    func fetchSimilar() {
-        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)/similar", queries: queries) {
-            taskSimilar = AF.request(url, method: .get)
-                .publishDecodable(type: ResponseList<Movie>.self)
-                .sink(receiveValue: { [weak self] response in
-                    guard let self = self else { return }
-                    switch response.result {
-                    case .success(let data):
-                        self.similar.append(contentsOf: data.results)
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                })
-        }
-    }
-    
-    private func loadImage() {
-        if let backdropPath = movieDetail?.backdropPath,
-           let url = Web.createURL(baseURL: Web.baseImageUrl, path: "\(Web.imageW780)\(backdropPath)") {
-            if let image = Web.cache.object(forKey: url.absoluteString as NSString) {
-                self.backgroundImage = image
-                return
+            do {
+                let (data, response) = try await URLSession.shared.data(from: url)
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { throw NSError() }
+                let result = try JSONDecoder().decode(MovieDetail.self, from: data)
+                movieDetail = result
+            } catch {
+                print(error.localizedDescription)
             }
-            
-            taskDetail = AF.request(url)
-                .publishData()
-                .sink { [weak self] response in
-                    guard let self = self else { return }
-                    switch response.result {
-                    case .success(let data):
-                        if let image = UIImage(data: data) {
-                            self.backgroundImage = image
-                            Web.cache.setObject(image, forKey: url.absoluteString as NSString)
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    }
-                }
+        }
+    }
+    
+    private func fetchCredit() async {
+        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)/credits", queries: queries) {
+            do {
+                let (data, response) = try await URLSession.shared.data(from: url)
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { throw NSError() }
+                let result = try JSONDecoder().decode(Credit.self, from: data)
+                fillCastAndCrew(with: result)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func fetchSimilar() async {
+        if let url = Web.createURL(baseURL: Web.baseUrl, path: "/\(Web.apiVersion)/movie/\(id)/similar", queries: queries) {
+            do {
+                let (data, response) = try await URLSession.shared.data(from: url)
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { throw NSError() }
+                let result = try JSONDecoder().decode(ResponseList<Movie>.self, from: data)
+                similar.append(contentsOf: result.results)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     

@@ -38,7 +38,6 @@ struct VideoListRow: View {
             .padding(.leading)
             Spacer()
         }
-        .padding(4)
     }
     
     private let lineLimit = 1
@@ -72,18 +71,16 @@ struct ImageVideo: View {
     @ObservedObject var viewModel: VideoListRowViewModel
     
     var body: some View {
-        Group {
-            if let image = viewModel.image {
-                Image(uiImage: image)
-                    .resizable()
-            } else {
-                Image(systemName: "photo")
-                    .resizable()
-            }
+        AsyncImage(url: viewModel.urlImage) { imageLoaded in
+            imageLoaded
+                .resizable()
+        } placeholder: {
+            Image(systemName: "photo")
+                .resizable()
+                .foregroundColor(.gray)
         }
         .scaledToFit()
         .frame(width: widthImage, height: heightImage)
-        .foregroundColor(.gray)
         .cornerRadius(cornerRadiusImage)
     }
     

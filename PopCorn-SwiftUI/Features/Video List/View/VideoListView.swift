@@ -12,27 +12,25 @@ struct VideoListView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.movies) { movie in
-                NavigationLink(destination: MovieDetailView(viewModel: MovieDetailViewModel(idMovie: movie.id))) {
-                    VideoListRow(viewModel: VideoListRowViewModel(movie: movie))
-                        .onAppear {
-                            loadNextPageIfNeeded(with: movie)
-                        }
+            List {
+                ForEach(viewModel.movies) { movie in
+                    NavigationLink(destination: MovieDetailView(viewModel: MovieDetailViewModel(idMovie: movie.id))) {
+                        VideoListRow(viewModel: VideoListRowViewModel(movie: movie))
+                            .onAppear {
+                                loadNextPageIfNeeded(with: movie)
+                            }
+                    }
+                }
+            }
+            .refreshable {
+                async {
+                    await viewModel.fetchData(isToReload: true)
                 }
             }
             .navigationTitle(viewModel.title)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Label("Reload Data", systemImage: "arrow.counterclockwise")
-                        .foregroundColor(.accentColor)
-                        .onTapGesture {
-                            viewModel.fetchData(isToReload: true)
-                        }
-                }
-            }
         }
-        .onAppear {
-            viewModel.fetchData()
+        .task {
+            await viewModel.fetchData()
         }
     }
     
@@ -42,14 +40,15 @@ struct VideoListView: View {
             position = viewModel.movies.count - General.offset
         }
         if movie.id == viewModel.movies[position].id {
-            viewModel.fetchData()
+            async {
+                await viewModel.fetchData()
+            }
         }
     }
 }
 
 struct VideoListView_Previews: PreviewProvider {
     static var previews: some View {
-        
         VideoListView(viewModel: VideoListViewModel(tab: Tab.popular))
     }
 }

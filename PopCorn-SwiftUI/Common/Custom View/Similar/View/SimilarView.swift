@@ -11,18 +11,16 @@ struct SimilarView: View {
     @ObservedObject var viewModel: SimilarViewModel
     
     var body: some View {
-        Group {
-            if let image = viewModel.image {
-                Image(uiImage: image)
-                    .resizable()
-            } else {
-                Image(systemName: "photo")
-                    .resizable()
-            }
+        AsyncImage(url: viewModel.urlImage) { imageLoaded in
+            imageLoaded
+                .resizable()
+        } placeholder: {
+            Image(systemName: "photo")
+                .resizable()
+                .foregroundColor(.gray)
         }
         .scaledToFit()
         .frame(width: widthImage, height: heightImage)
-        .foregroundColor(.gray)
         .cornerRadius(cornerRadiusImage)
     }
     

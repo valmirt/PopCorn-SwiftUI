@@ -8,22 +8,20 @@
 import SwiftUI
 
 struct ProfileImage: View {
-    var image: UIImage?
+    var url: URL?
     var width: CGFloat
     var height: CGFloat
     
     var body: some View {
-        Group {
-            if let image = image {
-                Image(uiImage: image)
-                    .resizable()
-            } else {
-                Image(systemName: "person.fill")
-                    .resizable()
-            }
+        AsyncImage(url: url) { imageLoaded in
+            imageLoaded
+                .resizable()
+        } placeholder: {
+            Image(systemName: "person.fill")
+                .resizable()
+                .foregroundColor(.gray)
         }
         .scaledToFill()
-        .foregroundColor(.gray)
         .frame(width: width, height: height)
         .clipShape(Circle())
         .overlay(Circle().stroke(Color.accentColor, lineWidth: 2))
@@ -32,6 +30,6 @@ struct ProfileImage: View {
 
 struct ProfileImage_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileImage(image: nil, width: 92, height: 92)
+        ProfileImage(url: nil, width: 92, height: 92)
     }
 }

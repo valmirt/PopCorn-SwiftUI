@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import Combine
-import Alamofire
 
 final class PersonViewModel: ObservableObject {
     private var idPerson: Int

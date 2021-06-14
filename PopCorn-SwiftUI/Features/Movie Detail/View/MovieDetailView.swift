@@ -13,7 +13,7 @@ struct MovieDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                BackgroundImage(viewModel.backgroundImage)
+                BackgroundImage(urlImage: viewModel.backgroundURL)
                     .frame(height: 260)
                 
                 MovieInfo(
@@ -83,25 +83,18 @@ struct MovieDetailView: View {
 
 //MARK: - Background Image view
 struct BackgroundImage: View {
-    var backgroundImage: UIImage?
-    
-    init(_ image: UIImage? = nil) {
-        backgroundImage = image
-    }
+    var urlImage: URL?
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Group {
-                if let image = backgroundImage {
-                    Image(uiImage: image)
-                        .resizable()
-                } else {
-                    Image(systemName: "photo")
-                        .resizable()
-                }
+            AsyncImage(url: urlImage) { imageLoaded in
+                imageLoaded
+                    .resizable()
+            } placeholder: {
+                Image(systemName: "photo")
+                    .resizable()
+                    .foregroundColor(.gray)
             }
-            .clipped()
-            .foregroundColor(.gray)
             
             Image("gradient")
                 .resizable()

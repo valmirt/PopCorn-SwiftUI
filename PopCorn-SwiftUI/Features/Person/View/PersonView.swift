@@ -13,7 +13,7 @@ struct PersonView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ProfileImage(image: nil, width: 128, height: 128)
+                ProfileImage(url: nil, width: 128, height: 128)
                     .padding()
                 
                 Text("Person Name")

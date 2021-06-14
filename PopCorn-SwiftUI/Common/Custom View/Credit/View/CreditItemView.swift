@@ -12,7 +12,7 @@ struct CreditItemView: View {
     
     var body: some View {
         VStack {
-            ProfileImage(image: viewModel.image, width: 92, height: 92)
+            ProfileImage(url: viewModel.urlImage, width: 92, height: 92)
                 .padding(.vertical, 8)
             Text(viewModel.name)
                 .font(.headline)
