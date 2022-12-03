@@ -16,7 +16,7 @@ enum Web {
     static let imageW342 = "/t/p/w342"
     static let imageW500 = "/t/p/w500"
     static let imageW780 = "/t/p/w780"
-    static let apiKey = "ebf3f29bcec9455240223a565fb2a81d"
+    static let apiKey = ""
     static let apiVersion = "3"
     static let cache = NSCache<NSString, UIImage>()
     
